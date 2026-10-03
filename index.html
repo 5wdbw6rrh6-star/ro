@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الذكاء الاصطناعي: التطبيقات والدور البشري | م/ أحمد ابو الخير</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            user-select: none;
+        }
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            transform: translateY(10px);
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(2, 132, 199, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between overflow-hidden">
+
+    <!-- Top Header Bar -->
+    <header class="bg-slate-800/90 backdrop-blur border-b border-slate-700/60 px-4 py-3 flex justify-between items-center z-20">
+        <div class="flex items-center gap-3">
+            <div class="bg-gradient-to-r from-sky-500 to-blue-600 p-2 rounded-xl text-white font-bold text-lg flex items-center justify-center w-10 h-10 shadow-lg">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+            <div>
+                <h1 class="text-sm md:text-base font-bold text-slate-100 leading-tight">تطبيقات الذكاء الاصطناعي والدور البشري</h1>
+                <p class="text-xs text-sky-400 font-medium">الوحدة الأولى - الدرس الثالث | تانية بكالوريا</p>
+            </div>
+        </div>
+
+        <!-- Presenter Name in Header -->
+        <div class="hidden md:flex items-center gap-2 bg-slate-700/50 border border-slate-600/50 px-3 py-1.5 rounded-full">
+            <i class="fa-solid fa-user-tie text-sky-400 text-sm"></i>
+            <span class="text-xs md:text-sm font-semibold text-slate-200">إعداد: <span class="text-sky-300 font-bold">م/ أحمد ابو الخير</span></span>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <button id="fullscreenBtn" onclick="toggleFullscreen()" class="p-2 rounded-lg bg-slate-700/60 hover:bg-slate-700 text-slate-300 hover:text-white transition" title="ملء الشاشة">
+                <i class="fa-solid fa-expand" id="fullscreenIcon"></i>
+            </button>
+            <button onclick="toggleIndexModal()" class="p-2 rounded-lg bg-slate-700/60 hover:bg-slate-700 text-slate-300 hover:text-white transition" title="فهرس الشرائح">
+                <i class="fa-solid fa-list-ul"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Workspace -->
+    <main class="flex-1 relative flex items-center justify-center p-3 md:p-6 overflow-hidden">
+
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active flex-col items-center justify-center text-center w-full max-w-5xl h-full mx-auto" id="slide-0">
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl p-6 md:p-12 shadow-2xl relative overflow-hidden w-full backdrop-blur-sm glow-effect">
+                <div class="absolute -top-24 -right-24 w-60 h-60 bg-sky-500/10 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-24 -left-24 w-60 h-60 bg-blue-600/10 rounded-full blur-3xl"></div>
+
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-300 text-xs md:text-sm font-semibold mb-6">
+                    <i class="fa-solid fa-graduation-cap"></i> منهج البرمجة والذكاء الاصطناعي
+                </div>
+
+                <h1 class="text-3xl md:text-5xl font-black text-white mb-4 leading-tight">
+                    الذكاء الاصطناعي: <br>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-300">التطبيقات وحقيقة الدور البشري</span>
+                </h1>
+
+                <p class="text-slate-300 text-base md:text-xl max-w-2xl mx-auto mb-8 font-light">
+                    الدرس الثالث - الوحدة الأولى (منهج تانية بكالوريا)
+                </p>
+
+                <!-- Prominent Author Box -->
+                <div class="inline-flex items-center gap-4 bg-gradient-to-r from-sky-900/60 to-slate-800 border-2 border-sky-500/40 rounded-2xl p-4 md:px-8 shadow-xl">
+                    <div class="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-400/30 flex items-center justify-center text-sky-400 text-2xl">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs text-sky-400 uppercase tracking-wider block font-bold">إعداد وتصميم المعلم</span>
+                        <span class="text-xl md:text-2xl font-extrabold text-white">م/ أحمد ابو الخير</span>
+                    </div>
+                </div>
+
+                <div class="mt-10 flex justify-center gap-4">
+                    <button onclick="nextSlide()" class="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-bold px-8 py-3 rounded-xl shadow-lg shadow-sky-500/20 transition flex items-center gap-2 text-lg">
+                        بدء العرض التفاعلي <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Core Concept -->
+        <div class="slide flex-col justify-center w-full max-w-5xl mx-auto" id="slide-1">
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl p-6 md:p-10 shadow-2xl w-full backdrop-blur-sm">
+                <div class="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
+                    <div class="p-3 bg-amber-500/10 text-amber-400 rounded-xl text-xl border border-amber-500/20">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-sky-400 font-bold uppercase">الركيزة الأساسية للدرس</span>
+                        <h2 class="text-2xl md:text-3xl font-bold text-white">الفكرة الأساسية للذكاء الاصطناعي</h2>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 my-4">
+                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-sky-500/30 relative group hover:border-sky-500 transition">
+                        <div class="text-sky-400 text-3xl mb-3"><i class="fa-solid fa-microchip"></i></div>
+                        <h3 class="text-lg font-bold text-white mb-2">براعة الذكاء الاصطناعي</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            يتفوق AI بشكل استثنائي في <span class="text-sky-300 font-bold">إيجاد الأنماط المعقدة في البيانات الضخمة</span> وحساب الاحتمالات السرية بدقة فائقة لا يصل إليها العقل البشري في زمن قياسي.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-amber-500/30 relative group hover:border-amber-500 transition">
+                        <div class="text-amber-400 text-3xl mb-3"><i class="fa-solid fa-scale-balanced"></i></div>
+                        <h3 class="text-lg font-bold text-white mb-2">ضرورة الحكم البشري</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            رغم تفوقه التقني، يظل <span class="text-amber-300 font-bold">الحكم البشري ضروريًا وحتميًا</span> لتقييم الأبعاد الأخلاقية، حماية الخصوصية، وتحمل المسؤولية القانونية والإنسانية.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-sky-950/40 border-r-4 border-sky-500 p-4 rounded-l-xl mt-4">
+                    <p class="text-sm text-slate-200">
+                        <strong class="text-sky-400"><i class="fa-solid fa-quote-right"></i> خلاصة القول:</strong> الذكاء الاصطناعي أداة مساعدة فائقة القوة تحلل البيانات، لكن القرار النهائي والمسؤولية الأخلاقية تعود دومًا للإنسان.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: AI in Daily Life -->
+        <div class="slide flex-col justify-center w-full max-w-5xl mx-auto" id="slide-2">
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl p-6 md:p-8 shadow-2xl w-full backdrop-blur-sm">
+                <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-3 bg-sky-500/10 text-sky-400 rounded-xl text-xl border border-sky-500/20">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-sky-400 font-bold uppercase">تطبيقات عملية</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-white">أولاً: الذكاء الاصطناعي في الحياة اليومية</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Recommendation Systems (Exam Highlight) -->
+                    <div class="bg-slate-900/80 p-4 rounded-xl border-2 border-amber-500/60 relative">
+                        <div class="absolute -top-3 left-4 bg-amber-500 text-slate-950 font-black text-xs px-3 py-0.5 rounded-full uppercase flex items-center gap-1 shadow">
+                            <i class="fa-solid fa-star"></i> هـام للـامتـحـان
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="p-2.5 bg-amber-500/20 text-amber-400 rounded-lg text-lg">
+                                <i class="fa-solid fa-thumbs-up"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">أنظمة التوصية (Recommendation Systems)</h3>
+                                <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                                    تستخدمها منصات مثل يوتيوب، نيتفليكس، ومتنزهات التسوق لـ <span class="text-amber-300 font-semibold">تحليل سلوكك واقتراح المحتوى</span> أو المنتجات المناسبة لك بدقة عالية.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Voice Assistants -->
+                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 hover:border-sky-500 transition">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2.5 bg-sky-500/20 text-sky-400 rounded-lg text-lg">
+                                <i class="fa-solid fa-microphone"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">المساعدات الصوتية الذكية</h3>
+                                <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                                    مثل Siri و Google Assistant؛ تفهم اللغة الطبيعية، تنفذ الأوامر، وتجيب على التساؤلات اليومية.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Machine Translation -->
+                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 hover:border-sky-500 transition">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2.5 bg-indigo-500/20 text-indigo-400 rounded-lg text-lg">
+                                <i class="fa-solid fa-language"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">الترجمة الآلية الفورية</h3>
+                                <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                                    ترجمة النصوص والصوت بين اللغات فورياً بالاعتماد على سياق الجملة وتعلّم الشبكات العصبية.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Facial Recognition -->
+                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 hover:border-sky-500 transition">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2.5 bg-emerald-500/20 text-emerald-400 rounded-lg text-lg">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">التعرف على الوجه</h3>
+                                <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                                    تُستخدم لتأمين الهواتف المحمولة والتحقق من الهوية في المزارع والمطارات ومؤسسات العمل.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: AI in Industry -->
+        <div class="slide flex-col justify-center w-full max-w-5xl mx-auto" id="slide-3">
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl p-6 md:p-8 shadow-2xl w-full backdrop-blur-sm">
+                <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl text-xl border border-emerald-500/20">
+                            <i class="fa-solid fa-industry"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-emerald-400 font-bold uppercase">القطاعات الإنتاجية</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-white">ثانياً: الذكاء الاصطناعي في قطاعات الصناعة</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Predictive Maintenance -->
+                    <div class="bg-slate-900/80 p-4 rounded-xl border-2 border-sky-500/50">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2.5 bg-sky-500/20 text-sky-400 rounded-lg text-lg">
+                                <i class="fa-solid fa-gears"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-bold text-white text-base">التصنيع: الصيانة التنبؤية</h3>
+                                </div>
+                                <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                                    <span class="text-sky-300 font-mono font-bold">Predictive Maintenance</span>: التنبؤ بأعطال الآلات والآلات المصنعية <span class="text-sky-300 font-semibold">قبل حدوثها</span> لتجنب إيقاف الإنتاج وتقليل التكلفة.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Healthcare -->
+                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2.5 bg-rose-500/20 text-rose-400 rounded-lg text-lg">
+                                <i class="fa-solid fa-heart-pulse"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">الرعاية الصحية</h3>
+                                <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                                    تحليل الصور الطبية للأشعة، اكتشاف الأورام المبكرة، ومساعدة الباحثين في اكتشاف أدوية جديدة.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agriculture -->
+                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2.5 bg-emerald-500/20 text-emerald-400 rounded-lg text-lg">
+                                <i class="fa-solid fa-seedling"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">الزراعة الذكية</h3>
+                                <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                                    مراقبة صحة المحاصيل والتربة عبر الطائرات بدون طيار (Drones) والتحكم الآلي في الري.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Logistics -->
+                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2.5 bg-purple-500/20 text-purple-400 rounded-lg text-lg">
+                                <i class="fa-solid fa-truck-fast"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">الخدمات اللوجستية والشحن</h3>
+                                <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                                    تحسين مسارات الشحن لتوفير الوقود، وإدارة المخازن الذكية باستخدام الروبوتات الموجهة.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: AI Strengths vs Human Judgment -->
+        <div class="slide flex-col justify-center w-full max-w-5xl mx-auto" id="slide-4">
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl p-6 md:p-8 shadow-2xl w-full backdrop-blur-sm">
+                <div class="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
+                    <div class="p-3 bg-indigo-500/10 text-indigo-400 rounded-xl text-xl border border-indigo-500/20">
+                        <i class="fa-solid fa-code-compare"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-sky-400 font-bold uppercase">مقارنة تحليلية</span>
+                        <h2 class="text-xl md:text-2xl font-bold text-white">ثالثاً: ما يبرع فيه AI مقابل ما يتطلب الحذر والحكم البشري</h2>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- AI Strengths -->
+                    <div class="bg-slate-900/90 rounded-2xl p-5 border-t-4 border-emerald-500">
+                        <div class="flex items-center gap-2 text-emerald-400 font-bold text-lg mb-3">
+                            <i class="fa-solid fa-circle-check"></i> ما يبرع فيه الذكاء الاصطناعي
+                        </div>
+                        <ul class="space-y-3 text-slate-300 text-xs md:text-sm">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                                <span>معالجة ملايين البيانات في ثوانٍ معدودة.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                                <span>اكتشاف الأنماط المخفية والمعقدة جداً.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                                <span>أداء المهام المتكررة بدقة وبدون تعب.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                                <span>الصيانة التنبؤية والحسابات الرياضية المعقدة.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Human Judgment Required -->
+                    <div class="bg-slate-900/90 rounded-2xl p-5 border-t-4 border-rose-500">
+                        <div class="flex items-center gap-2 text-rose-400 font-bold text-lg mb-3">
+                            <i class="fa-solid fa-triangle-exclamation"></i> ما يتطلب الحذر والحكم البشري
+                        </div>
+                        <ul class="space-y-3 text-slate-300 text-xs md:text-sm">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-xmark text-rose-400 mt-1"></i>
+                                <span>فهم المشاعر البشرية، التعاطف، والأخلاقيات.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-xmark text-rose-400 mt-1"></i>
+                                <span>مراعاة الخصوصية وحماية البيانات الشخصية.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-xmark text-rose-400 mt-1"></i>
+                                <span>اتخاذ القرارات المصيرية وتحمل المسؤولية القانونية.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-xmark text-rose-400 mt-1"></i>
+                                <span>تجنب الانحياز للبيانات (Data Bias) غير العادلة.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Critical Thinking Question from Textbook -->
+        <div class="slide flex-col justify-center w-full max-w-5xl mx-auto" id="slide-5">
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl p-6 md:p-8 shadow-2xl w-full backdrop-blur-sm">
+                <div class="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
+                    <div class="p-3 bg-purple-500/10 text-purple-400 rounded-xl text-xl border border-purple-500/20">
+                        <i class="fa-solid fa-brain-circuit"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs text-purple-400 font-bold uppercase">سؤال تفكير نقدي من الكتاب المدرسي</span>
+                        <h2 class="text-xl md:text-2xl font-bold text-white">حالة دراسية: تشخيص الأشعة السينية (X-Ray)</h2>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/90 rounded-2xl p-6 border border-purple-500/30 mb-6">
+                    <div class="flex items-start gap-4">
+                        <div class="hidden sm:flex text-4xl text-purple-400 pt-1">
+                            <i class="fa-solid fa-x-ray"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-2">السؤال: يمكن للذكاء الاصطناعي قراءة صور الأشعة السينية بدقة عالية تصل إلى 98%، فلماذا يلزم وجود الطبيب البشري لتأكيد التشخيص؟</h3>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                استخرج الأسباب التي تجعل اعتماد التشخيص النهائي رهناً بالتدخل البشري فقط.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <button onclick="toggleAnswer()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-4 rounded-xl transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-eye"></i> عرض إجابة التفكير النقدي النموذجية
+                    </button>
+
+                    <div id="answerBox" class="hidden bg-purple-950/40 border border-purple-500/50 rounded-xl p-4 text-xs md:text-sm text-slate-200 animate-fade-in space-y-2">
+                        <p class="font-bold text-purple-300"><i class="fa-solid fa-circle-info"></i> الإجابة النموذجية:</p>
+                        <ul class="list-disc list-inside space-y-1 text-slate-300 pr-2">
+                            <li><strong>التاريخ الطبي للمريض:</strong> الطبيب يربط نتيجة الأشعة بالأعراض السريرية والتاريخ المرضي للأسرة وليس الصورة فقط.</li>
+                            <li><strong>المسؤولية القانونية والأخلاقية:</strong> الذكاء الاصطناعي لا يمكن مقاضاته أو تحميله مسؤولية أخطاء التشخيص.</li>
+                            <li><strong>التعاطف والدعم النفسي:</strong> نقل التشخيص للمريض يتطلب تواصل إنساني ومساندة نفسية لا يمتلكها AI.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Interactive Quiz Section -->
+        <div class="slide flex-col justify-center w-full max-w-5xl mx-auto" id="slide-6">
+            <div class="bg-slate-800/80 border border-slate-700/80 rounded-3xl p-6 md:p-8 shadow-2xl w-full backdrop-blur-sm">
+                <div class="flex justify-between items-center mb-4 border-b border-slate-700 pb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 bg-amber-500/10 text-amber-400 rounded-xl text-lg border border-amber-500/20">
+                            <i class="fa-solid fa-clipboard-question"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-amber-400 font-bold uppercase">اختبر معلوماتك</span>
+                            <h2 class="text-xl font-bold text-white">أسئلة وتدريبات الامتحان التفاعلية</h2>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 px-3 py-1 rounded-lg border border-slate-700 text-xs font-bold text-sky-400">
+                        سؤال <span id="currentQNum">1</span> من <span id="totalQNum">4</span>
+                    </div>
+                </div>
+
+                <!-- Quiz Area -->
+                <div id="quizContainer" class="space-y-4">
+                    <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-700">
+                        <h3 id="questionText" class="text-base md:text-lg font-bold text-white mb-4">...</h3>
+                        <div id="optionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <!-- Options injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Instant Feedback Box -->
+                    <div id="feedbackBox" class="hidden p-3 rounded-xl text-sm font-semibold flex items-center justify-between">
+                        <span id="feedbackText"></span>
+                        <button id="nextQBtn" onclick="nextQuestion()" class="bg-sky-500 hover:bg-sky-600 text-white text-xs px-4 py-2 rounded-lg font-bold transition">
+                            السؤال التالي <i class="fa-solid fa-arrow-left mr-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Final Result Box -->
+                <div id="resultContainer" class="hidden text-center py-6 space-y-4">
+                    <div class="w-16 h-16 bg-sky-500/20 text-sky-400 border border-sky-500/40 rounded-full flex items-center justify-center text-3xl mx-auto">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white">أحسنت! أكملت الاختبار بنجاح</h3>
+                    <p class="text-slate-300 text-base">درجتك النهائية هي: <span id="scoreText" class="text-amber-400 font-bold text-xl">0</span> من <span id="maxScoreText">4</span></p>
+                    <button onclick="resetQuiz()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition">
+                        إعادة الاختبار <i class="fa-solid fa-rotate-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Presentation Controls Footer -->
+    <footer class="bg-slate-800/90 backdrop-blur border-t border-slate-700/60 px-4 py-3 flex justify-between items-center z-20">
+        <!-- Presenter Credits Footer -->
+        <div class="text-xs text-slate-400 font-medium">
+            مادة البرمجة والذكاء الاصطناعي | إعداد: <span class="text-sky-400 font-bold">م/ أحمد ابو الخير</span>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="flex items-center gap-3 w-1/3 max-w-xs">
+            <span class="text-xs text-slate-400 font-bold" id="slideCounter">1 / 7</span>
+            <div class="flex-1 bg-slate-700 h-2 rounded-full overflow-hidden">
+                <div id="progressBar" class="bg-gradient-to-r from-sky-500 to-blue-600 h-full transition-all duration-300 w-1/7"></div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex items-center gap-2">
+            <button onclick="prevSlide()" id="prevBtn" class="bg-slate-700 hover:bg-slate-600 disabled:opacity-40 text-white px-4 py-1.5 rounded-xl text-xs md:text-sm font-bold transition flex items-center gap-1">
+                <i class="fa-solid fa-chevron-right"></i> السابق
+            </button>
+            <button onclick="nextSlide()" id="nextBtn" class="bg-sky-600 hover:bg-sky-500 text-white px-4 py-1.5 rounded-xl text-xs md:text-sm font-bold transition flex items-center gap-1">
+                التالي <i class="fa-solid fa-chevron-left"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Slide Index Modal -->
+    <div id="indexModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-700 pb-3">
+                <h3 class="text-lg font-bold text-white"><i class="fa-solid fa-list-ul text-sky-400"></i> فهرس شرائح العرض</h3>
+                <button onclick="toggleIndexModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="space-y-2 max-h-80 overflow-y-auto custom-scrollbar pr-1" id="slideIndexList">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State variables
+        let currentSlide = 0;
+        const totalSlides = 7;
+
+        const slideTitles = [
+            "شريحة العنوان والمقدمة",
+            "الفكرة الأساسية للذكاء الاصطناعي",
+            "أولاً: الذكاء الاصطناعي في الحياة اليومية",
+            "ثانياً: الذكاء الاصطناعي في الصناعة",
+            "ثالثاً: قدرات AI مقابل الحكم البشري",
+            "سؤال تفكير نقدي (الأشعة السينية)",
+            "اختبار وتدريبات الامتحان التفاعلية"
+        ];
+
+        // Quiz Data
+        const quizQuestions = [
+            {
+                q: "تُستخدم أنظمة التوصية (Recommendation Systems) بشكل أساسي لـ:",
+                options: [
+                    "التنبؤ بأعطال الآلات قبل حدوثها",
+                    "تحليل سلوك المستخدم واقتراح المحتوى المناسب",
+                    "ترجمة النصوص بين اللغات فورياً",
+                    "تشخيص صور الأشعة السينية"
+                ],
+                correct: 1
+            },
+            {
+                q: "المصطلح التقني المقابل لـ 'الصيانة التنبؤية' في قطاع التصنيع هو:",
+                options: [
+                    "Machine Translation",
+                    "Facial Recognition",
+                    "Predictive Maintenance",
+                    "Recommendation Systems"
+                ],
+                correct: 2
+            },
+            {
+                q: "ما الأداء الذي يبرع فيه الذكاء الاصطناعي مقارنة بالإنسان؟",
+                options: [
+                    "فهم المشاعر البشرية والتعاطف",
+                    "إيجاد الأنماط المعقدة في البيانات الضخمة بسرعة",
+                    "تحمل المسؤولية الأخلاقية والقانونية",
+                    "مراعاة الخصوصية الشخصية تلقائياً"
+                ],
+                correct: 1
+            },
+            {
+                q: "لماذا يتطلب تشخيص الأشعة السينية مراجعة وتأكيد الطبيب البشري؟",
+                options: [
+                    "لأن الذكاء الاصطناعي لا يتذكر التاريخ المرضي ولا يتحمل المسؤولية",
+                    "لأن الذكاء الاصطناعي بطيء جداً في تحليل الصور",
+                    "لأن الذكاء الاصطناعي يرفض قراءة صور الأشعة",
+                    "جميع ما سبق غير صحيح"
+                ],
+                correct: 0
+            }
+        ];
+
+        let currentQIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        // Slide Navigation
+        function updateSlides() {
+            document.querySelectorAll('.slide').forEach((slide, idx) => {
+                slide.classList.toggle('active', idx === currentSlide);
+            });
+
+            // Navigation UI Updates
+            document.getElementById('slideCounter').innerText = `${currentSlide + 1} / ${totalSlides}`;
+            document.getElementById('progressBar').style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+            document.getElementById('prevBtn').disabled = (currentSlide === 0);
+
+            if (currentSlide === totalSlides - 1) {
+                document.getElementById('nextBtn').classList.add('hidden');
+            } else {
+                document.getElementById('nextBtn').classList.remove('hidden');
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlides();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlides();
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlides();
+            toggleIndexModal();
+        }
+
+        // Fullscreen Toggle
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.log(err));
+                document.getElementById('fullscreenIcon').className = 'fa-solid fa-compress';
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                    document.getElementById('fullscreenIcon').className = 'fa-solid fa-expand';
+                }
+            }
+        }
+
+        // Slide Index Modal
+        function toggleIndexModal() {
+            const modal = document.getElementById('indexModal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                const list = document.getElementById('slideIndexList');
+                list.innerHTML = slideTitles.map((title, idx) => `
+                    <button onclick="goToSlide(${idx})" class="w-full text-right p-3 rounded-xl transition ${idx === currentSlide ? 'bg-sky-600 text-white font-bold' : 'bg-slate-700/50 hover:bg-slate-700 text-slate-200'} flex items-center justify-between">
+                        <span class="text-xs md:text-sm">${idx + 1}. ${title}</span>
+                        <i class="fa-solid fa-chevron-left text-xs opacity-60"></i>
+                    </button>
+                `).join('');
+            }
+        }
+
+        // Critical Thinking Answer Toggle
+        function toggleAnswer() {
+            const box = document.getElementById('answerBox');
+            box.classList.toggle('hidden');
+        }
+
+        // Quiz Logic
+        function loadQuestion() {
+            answered = false;
+            const q = quizQuestions[currentQIndex];
+            document.getElementById('currentQNum').innerText = currentQIndex + 1;
+            document.getElementById('totalQNum').innerText = quizQuestions.length;
+            document.getElementById('questionText').innerText = q.q;
+
+            const feedback = document.getElementById('feedbackBox');
+            feedback.className = 'hidden p-3 rounded-xl text-sm font-semibold flex items-center justify-between';
+
+            const optsContainer = document.getElementById('optionsContainer');
+            optsContainer.innerHTML = q.options.map((opt, i) => `
+                <button onclick="checkAnswer(${i})" class="quiz-opt-btn w-full text-right p-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs md:text-sm font-medium transition flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-full bg-slate-700 text-sky-400 flex items-center justify-center text-xs font-bold shrink-0">${i + 1}</span>
+                    <span>${opt}</span>
+                </button>
+            `).join('');
+        }
+
+        function checkAnswer(selected) {
+            if (answered) return;
+            answered = true;
+
+            const q = quizQuestions[currentQIndex];
+            const feedback = document.getElementById('feedbackBox');
+            const feedbackText = document.getElementById('feedbackText');
+            const buttons = document.querySelectorAll('.quiz-opt-btn');
+
+            if (selected === q.correct) {
+                score++;
+                buttons[selected].classList.add('bg-emerald-600/30', 'border-emerald-500', 'text-emerald-200');
+                feedback.classList.add('bg-emerald-950/80', 'border', 'border-emerald-500/50', 'text-emerald-300');
+                feedbackText.innerHTML = '<i class="fa-solid fa-circle-check ml-1"></i> إجابة صحيحة! أحسنت.';
+            } else {
+                buttons[selected].classList.add('bg-rose-600/30', 'border-rose-500', 'text-rose-200');
+                buttons[q.correct].classList.add('bg-emerald-600/30', 'border-emerald-500', 'text-emerald-200');
+                feedback.classList.add('bg-rose-950/80', 'border', 'border-rose-500/50', 'text-rose-300');
+                feedbackText.innerHTML = '<i class="fa-solid fa-circle-xmark ml-1"></i> إجابة خاطئة. الإجابة الصحيحة موضحة باللون الأخضر.';
+            }
+
+            feedback.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            if (currentQIndex < quizQuestions.length - 1) {
+                currentQIndex++;
+                loadQuestion();
+            } else {
+                document.getElementById('quizContainer').classList.add('hidden');
+                document.getElementById('resultContainer').classList.remove('hidden');
+                document.getElementById('scoreText').innerText = score;
+                document.getElementById('maxScoreText').innerText = quizQuestions.length;
+            }
+        }
+
+        function resetQuiz() {
+            currentQIndex = 0;
+            score = 0;
+            document.getElementById('resultContainer').classList.add('hidden');
+            document.getElementById('quizContainer').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        // Keyboard Controls Setup
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                nextSlide();
+            } else if (e.key === 'ArrowRight') {
+                prevSlide();
+            } else if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            }
+        });
+
+        // Initialize App
+        window.onload = function() {
+            updateSlides();
+            loadQuestion();
+        };
+    </script>
+</body>
+</html>
